@@ -4,7 +4,7 @@
 # Directories used by tools like npm, bower
 node_modules/
 bower_components/
-
+.env/
 # Directories used by Python virtualenv
 *.env/
 *.venv/
