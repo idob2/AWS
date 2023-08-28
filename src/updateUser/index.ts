@@ -4,6 +4,8 @@ import { updateUser } from "../services/dynamoDB";
 
 export const handler: APIGatewayProxyHandler = async (event) => {
   try {
+    console.log(event);
+
     const body = JSON.parse(event.body || "{}");
     const params = {
       TableName: tableName,

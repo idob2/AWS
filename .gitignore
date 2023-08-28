@@ -31,4 +31,5 @@ bower_components/
 *.cache
 *.old
 *.swn
-
+.env
+./serverless/

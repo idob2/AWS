@@ -49,13 +49,22 @@ export const functions = {
         http: {
           path: "user",
           method: "put",
-          //   authorizer: {
-          //     type: 'COGNITO_USER_POOLS',
-          //     authorizerId:'g3yayg'
-          //   }
+          authorizer: {
+            type: "TOKEN",
+            name: "authorizer", 
+            arn: {
+                "Fn::GetAtt": ["AuthorizerLambdaFunction", "Arn"]
+              },
+            identitySource: "method.request.header.Authorization",
+            resultTtlInSeconds: 3600
+          }
         },
       },
     ],
   },
-  // ... other functions
+  authorizer:{
+    handler:"src/authorizer/index.handler",
+    role: moveoLambdaRole,
+    name: "skills-Ido-auth",
+  },
 };

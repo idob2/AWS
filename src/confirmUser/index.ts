@@ -4,7 +4,7 @@ import { confirmUser } from "../services/cognito";
 export const handler: APIGatewayProxyHandler = async (event) => {
   try {
     const body = JSON.parse(event.body!);
-    const { email, confirmationCode } = body;
+    const { email } = body;
 
     const params = {
       UserPoolId: process.env.USER_POOL_ID!,

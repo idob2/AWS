@@ -1,6 +1,6 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
 import { loginUser } from "../services/cognito";
-import { CognitoAuthParams } from "../types/cognitoTypes";
+import { CognitoIdentityServiceProvider } from "aws-sdk";
 
 export const handler: APIGatewayProxyHandler = async (event) => {
   const data = JSON.parse(event.body || "{}");
@@ -8,7 +8,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
   const { email, password } = data;
 
   try {
-    const params: CognitoAuthParams = {
+    const params: CognitoIdentityServiceProvider.InitiateAuthRequest = {
       AuthFlow: "USER_PASSWORD_AUTH",
       ClientId: process.env.APP_CLIENT_ID!,
       AuthParameters: {

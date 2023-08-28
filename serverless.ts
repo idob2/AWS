@@ -1,10 +1,4 @@
 import { functions } from "./src/serverless-config/functions";
-import { AWS } from "@serverless/typescript";
-// import {
-//   cognitoCreateUserRoles,
-//   cognitoListUserPoolPolicies,
-// } from "./aws-config/roles";
-import { resources } from "./src/serverless-config/resources";
 import { mainRegion, tableName } from "./src/utils/constants";
 
 const serverlessConfiguration = {
@@ -29,26 +23,15 @@ const serverlessConfiguration = {
     iam: {
       role: {
         statements: [
-          // {
-          //   Effect: 'Allow',
-          //   Action: ['cognito-idp:InitiateAuth'],
-          //   Resource: `arn:aws:cognito-idp:${secondaryRegion}:${process.env.ACCOUNT_ID}:userpool/${process.env.APP_CLIENT_ID}`
-          // },
           {
             Effect: 'Allow',
             Action: ['dynamodb:PutItem'],
             Resource: `arn:aws:dynamodb:${mainRegion}:${process.env.ACCOUNT_ID}:table/${tableName}`
           }
-          // ... other permissions ...
         ],
       },
     },
-    
-    // iam: {
-    //   role: {
-    //     statements: [cognitoListUserPoolPolicies, cognitoCreateUserRoles],
-    //   },
-    // },
+
   },
   functions,
   // resources,
