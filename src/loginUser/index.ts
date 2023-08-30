@@ -23,7 +23,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       statusCode: 200,
       body: JSON.stringify({
         message: "Login successful!",
-        idToken: loginResponse.AuthenticationResult?.IdToken,
+        accessToken: loginResponse.AuthenticationResult?.AccessToken,
       }),
     };
   } catch (error: any) {

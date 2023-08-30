@@ -62,6 +62,28 @@ export const functions = {
       },
     ],
   },
+  getUser: {
+    handler: "src/getUser/index.handler",
+    role: moveoLambdaRole,
+    name: "skills-Ido-getUser",
+    events: [
+      {
+        http: {
+          path: "user/{id}",
+          method: "get",
+          authorizer: {
+            type: "TOKEN",
+            name: "authorizer", 
+            arn: {
+                "Fn::GetAtt": ["AuthorizerLambdaFunction", "Arn"]
+              },
+            identitySource: "method.request.header.Authorization",
+            resultTtlInSeconds: 3600
+          }
+        },
+      },
+    ],
+  },
   authorizer:{
     handler:"src/authorizer/index.handler",
     role: moveoLambdaRole,

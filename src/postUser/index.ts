@@ -2,24 +2,18 @@ import { APIGatewayProxyHandler } from "aws-lambda";
 import { tableName } from "../utils/constants";
 import { getUser, postUser } from "../services/dynamoDB";
 import { signUpUser } from "../services/cognito";
-import { validator } from "../services/validator";
 import { CognitoIdentityServiceProvider } from "aws-sdk";
 
 export const handler: APIGatewayProxyHandler = async (event) => {
   try {
     const data = JSON.parse(event.body || "{}");
 
-    if (!validator.validate(data)) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ message: "Invalid data" }),
-      };
-    }
-
     const params = {
-      TableName: tableName!,
+      TableName: tableName,
       Item: {
         id: data.id,
+        email: data.email,
+        password: data.password,
         firstName: data.firstName,
         lastName: data.lastName,
         birthDate: data.birthDate,
